@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
-df = pd.read_excel("C:\\Users\\Tiago\\board_game\\boar_game_exel.xlsx")
+df = pd.read_excel("../boar_game_exel.xlsx")
 df1 = df.copy()
 
 st.header('board game master')
