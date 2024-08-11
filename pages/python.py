@@ -29,7 +29,7 @@ tap1, tap2, tap3 = st.tabs(['pontos totais ','dias ganhos de 2024','Campeões an
 
 with tap1:
     with st.container():
-        st.markdown("# Garfico pontos total")
+        st.markdown("# Gráfico pontos total")
 
         caio = df.loc[0,'total'] 
         tiago = df.loc[1,'total']
@@ -42,7 +42,7 @@ with tap1:
 
 with tap2:
     with st.container():
-        st.markdown("# Garfico dias ganhos")
+        st.markdown("# Gráfico dias ganhos")
 
         caio = df.loc[0,'dias'] 
         tiago = df.loc[1,'dias']
