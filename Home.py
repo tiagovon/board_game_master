@@ -2,8 +2,8 @@ import streamlit as st
 
 st.set_page_config(page_title='Home')
 
-st.sidebar.markdown('# Cury Company')
-st.sidebar.markdown('## bem vindo ao board game master')
+
+st.sidebar.markdown('# bem vindo ao board game master')
 st.sidebar.markdown("""___""")
 
 
