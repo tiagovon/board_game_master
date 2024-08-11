@@ -10,7 +10,7 @@ st.sidebar.markdown("""___""")
 
 st.markdown("""
 
-Growth Dashboard foi construido para acompanhar as metricas de do board game master.
+Growth Dashboard foi construido para acompanhar as metricas  do board game master.
 ### Como utilizar esse Growth Dashboard?
 - python:
 - pontos totais.
