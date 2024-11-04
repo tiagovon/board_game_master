@@ -1,70 +1,52 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+
+# Carregando o DataFrame
 df = pd.read_excel("boar_game_exel.xlsx")
 df1 = df.copy()
 
-st.header('board game master')
+st.header('Board Game Master')
 
-st.sidebar.markdown("""___""")
-
-
+# Barra lateral para seleção de pessoas
+st.sidebar.markdown("___")
 st.sidebar.markdown('## Selecione uma pessoa')
 
 pessoas_options = st.sidebar.multiselect(
-    'Quais pessoas vc quer ver?',
-    ['caio' , 'tiago' , 'vijo' , 'judice '],
-    default=['caio', 'judice ', 'vijo', 'tiago']
+    'Quais pessoas você quer ver?',
+    df['pessoas'].unique(),  # Pegando as pessoas diretamente do DataFrame
+    default=df['pessoas'].unique()
 )
-st.sidebar.markdown("""___""")
+st.sidebar.markdown("___")
 
-linhas_selc = df['pessoas'].isin(pessoas_options)
-df = df.loc[linhas_selc,:]
+# Filtrando o DataFrame com base na seleção
+df = df[df['pessoas'].isin(pessoas_options)]
 
+# Exibindo o DataFrame filtrado
 st.dataframe(df)
 
+# Definindo uma função para criar gráficos
+def criar_grafico(titulo, coluna):
+    st.markdown(f"### {titulo}")
+    fig = px.bar(
+        x=df['pessoas'], 
+        y=df[coluna], 
+        color=df['pessoas'], 
+        labels={'x': 'Jogadores', 'y': titulo}
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
-
-tap1, tap2, tap3 = st.tabs(['pontos totais ','dias ganhos de 2024','Campeões anuais'])
+# Criando abas
+tap1, tap2, tap3 = st.tabs(['Pontos Totais', 'Dias Ganhos de 2024', 'Campeões Anuais'])
 
 with tap1:
     with st.container():
-        st.markdown("# Gráfico pontos total")
-
-        caio = df.loc[0,'total'] 
-        tiago = df.loc[1,'total']
-        vijo = df.loc[2,'total']
-        judice = df.loc[3,'total'] 
-
-        fig = px.bar(x=['caio', 'tiago', 'vijo', 'judice '], y=[caio, tiago, vijo, judice], color=['caio', 'tiago', 'vijo', 'judice '])
-        st.plotly_chart(fig, use_container_width=True)
-
+        criar_grafico("Gráfico de Pontos Totais", 'total')
 
 with tap2:
     with st.container():
-        st.markdown("# Gráfico dias ganhos")
-
-        caio = df.loc[0,'dias'] 
-        tiago = df.loc[1,'dias']
-        vijo = df.loc[2,'dias']
-        judice = df.loc[3,'dias'] 
-
-        fig = px.bar(x=['caio', 'tiago', 'vijo', 'judice '], y=[caio, tiago, vijo, judice], color=['caio', 'tiago', 'vijo', 'judice '])
-        st.plotly_chart(fig, use_container_width=True)
-
+        criar_grafico("Gráfico de Dias Ganhos", 'dias')
 
 with tap3:
     with st.container():
-        st.markdown("# Campeao anual")
-
-        caio = df.loc[0,'anual'] 
-        tiago = df.loc[1,'anual']
-        vijo = df.loc[2,'anual']
-        judice = df.loc[3,'anual'] 
-
-        fig = px.bar(x=['caio', 'tiago', 'vijo', 'judice '], y=[caio, tiago, vijo, judice], color=['caio', 'tiago', 'vijo', 'judice '])
-        st.plotly_chart(fig, use_container_width=True)
-
-#total
-#dias_ganhos
-#atual caempao
+        criar_grafico("Gráfico de Campeões Anuais", 'anual')
